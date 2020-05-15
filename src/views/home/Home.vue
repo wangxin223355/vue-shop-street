@@ -61,7 +61,8 @@ export default {
       isShowBackTop: false,
       taboffsetTop: 0,
       isShow: false,
-      saveY: 0
+      saveY: 0,
+      itemImgListener: null
     }
   },
   components: {
@@ -80,6 +81,9 @@ export default {
   },
   deactivated() {
     this.saveY = this.$refs.scroll.getScrollY()
+
+    // 取消全局事件的监听
+    this.$bus.$off('')
   },
   created() {
     this.getHomeMultidate()
@@ -90,10 +94,10 @@ export default {
   mounted() {
     const refresh = debounce(this.$refs.scroll.refresh, 200)
     // 监听事件总线 $on
-    this.$bus.$on('itemImageLoad', () => {
-      // this.$refs.scroll.refresh()
+    this.itemImgListener = () => {
       refresh()
-    })
+    }
+    this.$bus.$on('itemImageLoad', this.itemImgListener)
   },
   computed: {
     showGoods() {
