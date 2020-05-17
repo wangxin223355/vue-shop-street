@@ -1,15 +1,33 @@
 <template>
   <div id="detail">
-    <detail-nav-bar class="detail-nav" @titleClick="titleClick" ref="nav"></detail-nav-bar>
-    <scroll class="content" ref="scroll" :probe-type="3" @scroll="contentScroll">
+    <detail-nav-bar
+      class="detail-nav"
+      @titleClick="titleClick"
+      ref="nav"
+    ></detail-nav-bar>
+    <scroll
+      class="content"
+      ref="scroll"
+      :probe-type="3"
+      @scroll="contentScroll"
+    >
       <detail-swiper :top-images="topImages"></detail-swiper>
       <detail-base-info :goods="goods"></detail-base-info>
       <detail-shop-info :shop="shop"></detail-shop-info>
       <detail-goods-info :detailInfo="detailInfo"></detail-goods-info>
-      <detail-param-info ref="params" :paramInfo="paramInfo"></detail-param-info>
-      <detail-comment-info ref="comment" :commentInfo="commentInfo"></detail-comment-info>
+      <detail-param-info
+        ref="params"
+        :paramInfo="paramInfo"
+      ></detail-param-info>
+      <detail-comment-info
+        ref="comment"
+        :commentInfo="commentInfo"
+      ></detail-comment-info>
       <goods-list ref="recommend" :goods="recommends"></goods-list>
     </scroll>
+    <deatil-boottom-bar @addToCart="addToCart" />
+    <back-top @click.native="backClick" v-show="isShowBackTop"></back-top>
+    <toast :message="message" :show="show"></toast>
   </div>
 </template>
 
@@ -21,12 +39,14 @@ import DetailShopInfo from './childrenComp/DetailShopInfo'
 import DetailGoodsInfo from './childrenComp/DetailGoodsInfo'
 import DetailParamInfo from './childrenComp/DetailParamInfo'
 import DetailCommentInfo from './childrenComp/DetailCommentInfo'
+import DeatilBoottomBar from './childrenComp/DeatilBoottomBar'
 
 import Scroll from 'components/common/scroll/Scroll'
 import GoodsList from 'components/content/goods/GoodList'
+import BackTop from 'components/content/backTop/BackTop'
 
 import { debounce } from 'common/utils'
-
+import Toast from 'components/common/toast/Toast'
 import {
   getDetail,
   Goods,
@@ -36,7 +56,7 @@ import {
 } from 'network/detail'
 
 export default {
-  name: 'Deatil',
+  name: 'Detail',
   data() {
     return {
       iid: null,
@@ -50,7 +70,10 @@ export default {
       itemImgListener: null,
       themTypYs: [],
       getThemeTopY: null,
-      currentIndex: 0
+      currentIndex: 0,
+      isShowBackTop: false,
+      message: '',
+      show: false
     }
   },
   components: {
@@ -62,7 +85,10 @@ export default {
     DetailGoodsInfo,
     DetailParamInfo,
     DetailCommentInfo,
-    GoodsList
+    GoodsList,
+    DeatilBoottomBar,
+    BackTop,
+    Toast
   },
   created() {
     // 保存id
@@ -139,6 +165,31 @@ export default {
           this.$refs.nav.currentIndex = this.currentIndex
         }
       }
+      // 是否显示回到顶部
+      this.isShowBackTop = -position.y > 1000 ? true : false
+    },
+    backClick() {
+      this.$refs.scroll.scrollTo(0, 0, 500)
+    },
+    // 添加进购物车
+    addToCart() {
+      // 获取购物车需要展示的信息
+      const product = {}
+      product.image = this.topImages[0]
+      product.title = this.goods.title
+      product.desc = this.goods.desc
+      product.price = this.goods.realPrice
+      product.iid = this.iid
+      this.$store.dispatch('addCart', product).then(res => {
+        // 显示添加购物车成功
+        // console.log(res)
+        this.show = true
+        this.message = res
+        setTimeout(() => {
+          this.show = false
+          this.message = ''
+        }, 1000)
+      })
     }
   }
 }
@@ -157,6 +208,6 @@ export default {
   background-color: #ffffff;
 }
 .content {
-  height: calc(100% - 44px);
+  height: calc(100% - 44px - 55px);
 }
 </style>

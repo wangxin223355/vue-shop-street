@@ -8,7 +8,7 @@
       class="tab-control"
       ref="tabControl1"
       @tabClick="tabclick"
-      :titles="['流行','新款','精选']"
+      :titles="['流行', '新款', '精选']"
     ></tab-control>
     <scroll
       class="content"
@@ -19,10 +19,17 @@
       :pullUpLoad="true"
       @pullingUp="loadMore"
     >
-      <home-swiper :banners="banners" @swipperImageLoad="swipperImageLoad"></home-swiper>
+      <home-swiper
+        :banners="banners"
+        @swipperImageLoad="swipperImageLoad"
+      ></home-swiper>
       <recommend-view :recommends="recommends"></recommend-view>
       <feature-view></feature-view>
-      <tab-control ref="tabControl2" @tabClick="tabclick" :titles="['流行','新款','精选']"></tab-control>
+      <tab-control
+        ref="tabControl2"
+        @tabClick="tabclick"
+        :titles="['流行', '新款', '精选']"
+      ></tab-control>
       <good-list :goods="showGoods"></good-list>
     </scroll>
     <back-top @click.native="backClick" v-show="isShowBackTop"></back-top>
