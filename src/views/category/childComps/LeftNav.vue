@@ -9,7 +9,6 @@
       >
         {{ item.title }}
       </li>
-      <li>更多</li>
     </ul>
   </div>
 </template>
@@ -42,11 +41,11 @@ export default {
 
 <style scoped>
 #LeftNav {
-  background-color: rgba(250, 129, 194, 0.5);
+  background-color: rgba(241, 171, 208, 0.5);
 }
 li {
-  height: 40px;
-  line-height: 40px;
+  height: 30px;
+  line-height: 30px;
   text-align: center;
   box-sizing: border-box;
 }

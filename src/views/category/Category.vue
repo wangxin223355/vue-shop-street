@@ -3,19 +3,20 @@
     <nav-bar class="nav-bar">
       <div slot="center">商品分类</div>
     </nav-bar>
-    <scroll class="content" ref="scroll">
-      <div class="classify-views">
-        <!-- 左侧导航 -->
-        <left-nav
-          class="left"
-          :goodsDate="leftData"
-          @sendMainKey="recMainKey($event)"
-          @click.native="getSubcategoryData()"
-        ></left-nav>
-        <!-- 右侧导航 -->
-        <right-nav class="right" :right-data="rightData"></right-nav>
-      </div>
-    </scroll>
+
+    <div class="classify-views">
+      <!-- 左侧导航 -->
+      <left-nav
+        class="left"
+        :goodsDate="leftData"
+        @sendMainKey="recMainKey($event)"
+        @click.native="getSubcategoryData()"
+      ></left-nav>
+      <!-- 右侧导航 -->
+      <scroll class="content right" ref="scroll">
+        <right-nav class="rightimg" :right-data="rightData"></right-nav>
+      </scroll>
+    </div>
   </div>
 </template>
 
@@ -76,19 +77,17 @@ export default {
 }
 .content {
   overflow: hidden;
+  width: 75%;
   position: absolute;
   top: 44px;
   bottom: 49px;
-  left: 0;
+  left: 25%;
   right: 0;
 }
-.classify-views {
-  display: flex;
-}
 .left {
-  flex: 1;
+  width: 25%;
 }
-.right {
-  flex: 3;
+.rightimg {
+  width: 100%;
 }
 </style>
