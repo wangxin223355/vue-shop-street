@@ -205,6 +205,7 @@ export default {
 .detail-nav {
   position: relative;
   background-color: #ffffff;
+  z-index: 1111;
 }
 .content {
   height: calc(100% - 44px - 55px);

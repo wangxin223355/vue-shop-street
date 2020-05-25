@@ -57,7 +57,7 @@ export default {
 
 <style scoped>
 #Prifile {
-  background-color: #dad7db;
+  background-color: #fbf7fb;
 }
 .prifile-nav {
   background-color: var(--color-tint);
