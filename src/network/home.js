@@ -1,17 +1,17 @@
-import { request } from "./request";
+import { request } from './request'
 
 export function getHomeMultidate() {
   return request({
-    url: "/api/n3/home/multidata"
-  });
+    url: '/api/z8/home/multidata',
+  })
 }
 
 export function getHomeGoods(type, page) {
   return request({
-    url: "/api/n3/home/data",
+    url: '/api/z8/home/data',
     params: {
       type,
-      page
-    }
-  });
+      page,
+    },
+  })
 }

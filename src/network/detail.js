@@ -2,15 +2,15 @@ import { request } from './request'
 
 export function getDetail(iid) {
   return request({
-    url: '/api/n3/detail',
+    url: '/api/z8/detail',
     params: {
-      iid
-    }
+      iid,
+    },
   })
 }
 export function getRecomment() {
   return request({
-    url: '/api/n3/recommend'
+    url: '/api/z8/recommend',
   })
 }
 export class Goods {
